@@ -5,9 +5,13 @@ import { Feather } from "@expo/vector-icons";
 import PrimaryButton from "src/components/shared/PrimaryButton";
 import InputField from "src/components/shared/InputField";
 import { useOtpVerifyMutation } from "src/redux/features/auth/authApi";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "src/types";
+
+type NavigationProp = StackNavigationProp<RootStackParamList>
 
 const OtpVerify = () => {
-  const navigation = useNavigation<any>();
+  const navigation = useNavigation<NavigationProp>();
   const route = useRoute<any>();
   const { otp: expectedOtp, phone } = route.params;
 
@@ -36,7 +40,7 @@ const OtpVerify = () => {
 
       if (res.status) {
         Alert.alert("Success", "Phone verified successfully!");
-        navigation.navigate("Login");
+        navigation.navigate("Login Screen");
       }
     } catch (err: any) {
       Alert.alert("Error", err?.data?.message || "OTP verification failed");
@@ -58,7 +62,7 @@ const OtpVerify = () => {
         textClass="text-[#121212] text-xl"
       />
 
-      <TouchableOpacity onPress={() => navigation.navigate("SignUp")} className="items-center mt-2">
+      <TouchableOpacity onPress={() => navigation.navigate("Sign Up as User")} className="items-center mt-2">
         <Text style={{ color: "#aaa" }}>
           Wrong number? <Text style={{ color: "white", fontWeight: "bold" }}>Go back</Text>
         </Text>

@@ -1,32 +1,20 @@
 import {
   View,
-  Text,
   Image,
-  ImageBackground,
-  Alert,
 } from "react-native";
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { scale, verticalScale } from "react-native-size-matters";
-import { StyleSheet } from "react-native";
-import { useAppDispatch } from "src/redux/hooks";
-import { setToken } from "src/redux/features/auth/authSlice";
 import PrimaryButton from "src/components/shared/PrimaryButton";
-import { RootStackParamList } from "src/types/navigation";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { LinearGradient } from "expo-linear-gradient";
+import { RootStackParamList } from "src/types";
 
 type NavigationProp = StackNavigationProp<RootStackParamList>
 
 const OnBoarding = () => {
   const navigation = useNavigation<NavigationProp>()
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      title: '',
-    });
-  }, [navigation]);
 
   return (
     <LinearGradient
@@ -46,9 +34,6 @@ const OnBoarding = () => {
               />
             </View>
           </View>
-
-
-
           <View className="w-full">
             <PrimaryButton
               title="Log In"

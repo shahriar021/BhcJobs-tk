@@ -7,9 +7,13 @@ import InputField from "src/components/shared/InputField";
 import { useSignUpUserMutation } from "src/redux/features/auth/authApi";
 import { LinearGradient } from "expo-linear-gradient";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { RootStackParamList } from "src/types";
+import { StackNavigationProp } from "@react-navigation/stack";
+
+type NavigationProp = StackNavigationProp<RootStackParamList>
 
 const SignUpUser = () => {
-  const navigation = useNavigation<any>();
+  const navigation = useNavigation<NavigationProp>();
   const [register, { isLoading }] = useSignUpUserMutation();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -37,6 +41,7 @@ const SignUpUser = () => {
   }, [navigation]);
 
   const handleRegister = async () => {
+    const formattedDob = dob.toISOString().split("T")[0]; 
     if (!name.trim()) return Alert.alert("Error", "Please enter your name");
     if (phone.length < 11) return Alert.alert("Error", "Please enter your phone number correctly");
     if (!email.trim()) return Alert.alert("Error", "Please enter your email");
@@ -54,10 +59,9 @@ const SignUpUser = () => {
         password,
         confirm_password: confirmPassword,
         passport_number: passportNumber,
-        dob,
+        dob:formattedDob,
         gender,
       }).unwrap();
-
       if (res.status) {
         navigation.navigate("OtpVerify", {
           otp: res.data.otp,

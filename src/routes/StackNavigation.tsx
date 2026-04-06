@@ -1,8 +1,8 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { BottomNavigation } from "./BottomNavigation";
-import { RootStackParamList } from "src/types/navigation";
 import JobDetailScreen from "src/screens/Job/JobDetails";
+import { RootStackParamList } from "src/types";
 
 const Stack = createStackNavigator<RootStackParamList>();
 

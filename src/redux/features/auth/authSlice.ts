@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { FirebaseUserInfo } from "src/types/profile";
 
 export type TUser = {
 
@@ -40,7 +39,6 @@ type TAuthData = {
   userType: string | null;
   token: string | null
   loading: boolean;
-  userInfo: FirebaseUserInfo | null
 };
 
 const initialState: TAuthData = {
@@ -53,7 +51,6 @@ const initialState: TAuthData = {
   userType: null,
   token: null,
   loading: false,
-  userInfo:null
 };
 
 const authSlice = createSlice({
@@ -83,11 +80,9 @@ const authSlice = createSlice({
     setCamLoading: (state, action) => {
       state.loading = action.payload;
     },
-    setUserInfo:(state, action: PayloadAction<FirebaseUserInfo | null>)=>{
-      state.userInfo=action.payload
-    }
+    
   },
 });
 
-export const { setUser, setCompanyAuth, setBaseUrl, setUserType, setToken, setId, setCamLoading,setUserInfo } = authSlice.actions;
+export const { setUser, setCompanyAuth, setBaseUrl, setUserType, setToken, setId, setCamLoading } = authSlice.actions;
 export default authSlice.reducer;

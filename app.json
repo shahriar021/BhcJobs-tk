@@ -7,20 +7,20 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/vocatrns.png",
+    "icon": "./assets/bhcjobs.png",
     "userInterfaceStyle": "light",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
     "newArchEnabled": false,
     "splash": {
-      "image": "./assets/vocatrns.png",
+      "image": "./assets/bhcjobs.png",
       "resizeMode": "contain",
-      "backgroundColor": "#121212"
+      "backgroundColor": "#2FA4D7"
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.Vocabo.sas",
+      "bundleIdentifier": "com.bhcjobs.sas",
       "urlScheme": "staark"
     },
     "android": {
@@ -37,7 +37,7 @@
         "android.permission.READ_MEDIA_IMAGES"
       ],
       "useNextNotificationsApi": true,
-      "package": "com.Vocabo.sas",
+      "package": "com.bhcjobs.sas",
       "intentFilters": [
         {
           "action": "VIEW",

@@ -9,10 +9,13 @@ import JobCard from "src/components/ui/homepage/JobCard";
 import CompanyCard from "src/components/ui/homepage/CompanyCard";
 import { normalizeCompany, normalizeIndustry, normalizeJob } from "src/utils.ts/normalizers";
 import Loading from "src/components/shared/Loading";
-import { NormalizedCompany, NormalizedIndustry, NormalizedJob } from "src/types";
+import { NormalizedCompany, NormalizedIndustry, NormalizedJob, RootStackParamList } from "src/types";
+import { StackNavigationProp } from "@react-navigation/stack";
+
+type NavigationProp = StackNavigationProp<RootStackParamList>
 
 const HomeScreen = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp>();
 
   const { data: industriesData, isLoading: iLoad } = useGetIndustriesQuery({});
   const { data: jobsData, isLoading: jLoad } = useGetRecommendedJobsQuery({});

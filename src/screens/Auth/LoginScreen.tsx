@@ -8,9 +8,13 @@ import InputField from "src/components/shared/InputField";
 import { setToken } from "src/redux/features/auth/authSlice";
 import { useLoginMutation } from "src/redux/features/auth/authApi";
 import { LinearGradient } from "expo-linear-gradient";
+import { RootStackParamList } from "src/types";
+import { StackNavigationProp } from "@react-navigation/stack";
+
+type NavigationProp = StackNavigationProp<RootStackParamList>
 
 const Login = () => {
-  const navigation = useNavigation<any>();
+  const navigation = useNavigation<NavigationProp>();
   const dispatch = useDispatch();
   const [login, { isLoading }] = useLoginMutation();
 
@@ -42,11 +46,9 @@ const Login = () => {
 
    try {
      const res = await login(formData).unwrap();
-     console.log(res);
 
      if (res.status) {
-       dispatch(setToken(res.data.token)); // adjust to your API response
-       navigation.navigate("Home");
+       dispatch(setToken(res.data.token)); 
      }
    } catch (err: any) {
      Alert.alert("Error", err?.data?.message || "Login failed");

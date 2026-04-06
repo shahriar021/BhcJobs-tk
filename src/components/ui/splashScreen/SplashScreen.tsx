@@ -1,3 +1,4 @@
+import { LinearGradient } from "expo-linear-gradient";
 import React, { useEffect, useRef } from "react";
 import {
   StyleSheet,
@@ -22,23 +23,24 @@ export default function SplashScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ImageBackground
-        source={require("../../../../assets/home/splashBack.jpeg")}
-        style={styles.fullImage}
-        resizeMode="cover"
-      >
+      <LinearGradient
+            colors={["#2FA4D7", "#ffffff"]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={{ flex: 1,alignItems:"center",justifyContent:"center" }}
+          >
         <Animated.View style={[styles.overlay, { opacity: fadeAnim }]}>
           <View className="w-full mb-6 bg-white/90 rounded-2xl px-4 py-3 items-start">
             <View style={{ width: scale(200), height: verticalScale(40) }}>
               <Image
-                source={require("../../../../assets/home/voc.png")}
+                source={require("../../../../assets/home/logo_day_mode.png")}
                 style={{ width: "100%", height: "100%" }}
                 resizeMode="contain"
               />
             </View>
           </View>
         </Animated.View>
-      </ImageBackground>
+      </LinearGradient>
     </SafeAreaView>
   );
 }
