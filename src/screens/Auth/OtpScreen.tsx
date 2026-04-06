@@ -4,15 +4,15 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
 import PrimaryButton from "src/components/shared/PrimaryButton";
 import InputField from "src/components/shared/InputField";
-import { useVerifyOtpMutation } from "src/redux/api/authApi"; // adjust to your RTK Query path
+import { useOtpVerifyMutation } from "src/redux/features/auth/authApi";
 
 const OtpVerify = () => {
   const navigation = useNavigation<any>();
   const route = useRoute<any>();
   const { otp: expectedOtp, phone } = route.params;
 
-  const [verifyOtp, { isLoading }] = useVerifyOtpMutation();
-  const [otp, setOtp] = useState(String(expectedOtp ?? "")); // pre-filled for dev
+  const [verifyOtp, { isLoading }] = useOtpVerifyMutation();
+  const [otp, setOtp] = useState(String(expectedOtp ?? "")); 
 
   useLayoutEffect(() => {
     navigation.setOptions({
