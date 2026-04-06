@@ -1,33 +1,49 @@
-import { View, Text, Image, TouchableOpacity, Alert } from 'react-native'
-import React, { useLayoutEffect } from 'react'
-import { Ionicons } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
-import { useAppSelector, useAppDispatch } from 'src/redux/hooks'
-import { setToken } from 'src/redux/features/auth/authSlice'
-import { FirebaseUserInfo } from 'src/types'
+import React, { useLayoutEffect } from 'react';
+import { View, Text, ScrollView, TouchableOpacity, SafeAreaView, Image, Alert } from 'react-native';
+import { FontAwesome5, MaterialCommunityIcons, Ionicons, } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { setToken } from 'src/redux/features/auth/authSlice';
+import { useAppDispatch } from 'src/redux/hooks';
 
-const Profile = () => {
-  const userInfo:FirebaseUserInfo | null = useAppSelector((state) => state.auth.userInfo)
+const ProfileScreen = () => {
   const navigation = useNavigation()
   const dispatch = useAppDispatch()
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: "#121212",
-        elevation: 0,
-        shadowOpacity: 0,
-        borderBottomWidth: 0,
+        backgroundColor: "#f6f7f9",
+        height: 70,
       },
-      headerTitle: "Profile",
-      headerTitleAlign: "left",
-      headerTitleStyle: {
-        color: "white",
-        fontFamily: "instrumentSans-Bold",
-        fontSize: 20,
-      },
+      headerTitle: () => null,
+      headerLeft: () => (
+        <TouchableOpacity
+          className="flex-row gap-2 items-center"
+          style={{ paddingLeft: 16 }}
+          onPress={() => navigation.goBack()}
+        >
+          <Image
+            source={require("../../../assets/home/logo_day_mode.png")}
+            style={{
+              width: 120,  // ✅ bigger
+              height: 45,
+              resizeMode: "contain"
+            }}
+          />
+        </TouchableOpacity>
+      ),
     });
   }, [navigation]);
+
+  const userData = {
+    name: "N/A",
+    email: "N/A",
+    contact: "N/A",
+    gender: "N/A",
+    dob: "N/A",
+    id: "N/A",
+    completion: "11%"
+  };
 
   const handleLogout = async () => {
     Alert.alert("Logout", "Are you sure you want to logout?", [
@@ -46,105 +62,61 @@ const Profile = () => {
     ]);
   };
 
-  const displayName = userInfo?.displayName ?? "No Name"
-  const email = userInfo?.email ?? ""
-  const photoURL = userInfo?.photoURL
-  const initials = displayName
-    .split(" ")
-    .map((n: string) => n[0])
-    .join("")
-    .toUpperCase()
-    .slice(0, 2)
-
-  const isEmailVerified = userInfo?.emailVerified ?? false
-
   return (
-    <View className="flex-1 bg-[#121212] px-5 pt-4">
+    <SafeAreaView className="flex-1 bg-[#F8FAFC]">
+      <ScrollView showsVerticalScrollIndicator={false} className="px-4">
 
-      <View className="items-center mt-4 mb-6">
-        {photoURL ? (
-          <Image
-            source={{ uri: photoURL }}
-            className="w-24 h-24 rounded-full mb-3"
-          />
-        ) : (
-          <View className="w-24 h-24 rounded-full bg-[#2A2A2A] items-center justify-center mb-3 border-2 border-[#FF4B4B]">
-            <Text className="text-[#FF4B4B] text-3xl font-bold">{initials}</Text>
+        <View className="bg-white rounded-2xl p-6 mt-6 items-center shadow-sm border border-gray-100">
+          <View className="relative">
+            <View className="w-24 h-24 rounded-full border-4 border-[#2FA4D7] items-center justify-center p-1">
+              <FontAwesome5 name="user-alt" size={50} color="#2FA4D7" />
+            </View>
+            <TouchableOpacity className="absolute bottom-0 right-0 bg-gray-500 p-1.5 rounded-full border-2 border-white">
+              <Ionicons name="camera" size={14} color="white" />
+            </TouchableOpacity>
           </View>
-        )}
-
-        <Text className="text-white text-xl font-bold">{displayName}</Text>
-        <Text className="text-[#888] text-sm mt-1">{email}</Text>
-
-        <View className={`flex-row items-center gap-1 mt-2 px-3 py-1 rounded-full ${isEmailVerified ? "bg-green-900/40" : "bg-yellow-900/40"}`}>
-          <Ionicons
-            name={isEmailVerified ? "checkmark-circle" : "alert-circle"}
-            size={12}
-            color={isEmailVerified ? "#4ade80" : "#facc15"}
-          />
-          <Text className={`text-xs font-medium ${isEmailVerified ? "text-green-400" : "text-yellow-400"}`}>
-            {isEmailVerified ? "Verified" : "Not Verified"}
-          </Text>
-        </View>
-      </View>
-
-      <View className="h-px bg-[#1E1E1E] mb-6" />
-
-      <Text className="text-[#555] text-xs font-semibold uppercase tracking-widest mb-3">Account Info</Text>
-
-      <View className="bg-[#1A1A1A] rounded-2xl overflow-hidden mb-6">
-
-        <View className="flex-row items-center px-4 py-3 border-b border-[#242424]">
-          <View className="w-8 h-8 rounded-lg bg-[#242424] items-center justify-center mr-3">
-            <Ionicons name="mail-outline" size={16} color="#888" />
-          </View>
-          <View className="flex-1">
-            <Text className="text-[#555] text-xs">Email</Text>
-            <Text className="text-white text-sm mt-0.5">{email}</Text>
-          </View>
+          <Text className="text-xl font-bold text-gray-800 mt-4">{userData.name}</Text>
+          <Text className="text-gray-500 font-medium">ID : {userData.id}</Text>
         </View>
 
-        <View className="flex-row items-center px-4 py-3 border-b border-[#242424]">
-          <View className="w-8 h-8 rounded-lg bg-[#242424] items-center justify-center mr-3">
-            <Ionicons name="call-outline" size={16} color="#888" />
+        <View className="bg-white rounded-2xl p-4 mt-4 flex-row items-center justify-between border border-gray-100 shadow-sm">
+          <View className="flex-row items-center">
+            <View className="bg-blue-50 p-2 rounded-lg">
+              <FontAwesome5 name="user-check" size={18} color="#2FA4D7" />
+            </View>
+            <Text className="ml-3 text-gray-700 font-medium">Your profile is {userData.completion} completed</Text>
           </View>
-          <View className="flex-1">
-            <Text className="text-[#555] text-xs">Phone</Text>
-            <Text className="text-white text-sm mt-0.5">{userInfo?.phoneNumber ?? "Not provided"}</Text>
-          </View>
+          <View className="bg-yellow-400 h-2 w-12 rounded-full" />
         </View>
 
-        <View className="flex-row items-center px-4 py-3">
-          <View className="w-8 h-8 rounded-lg bg-[#242424] items-center justify-center mr-3">
-            <Ionicons name="finger-print-outline" size={16} color="#888" />
-          </View>
-          <View className="flex-1">
-            <Text className="text-[#555] text-xs">Provider</Text>
-            <Text className="text-white text-sm mt-0.5 capitalize">{userInfo?.providerId ?? "firebase"}</Text>
-          </View>
+        <View className="bg-white rounded-2xl p-6 mt-4 mb-6 shadow-sm border border-gray-100">
+          <DetailRow icon="account-outline" label="Name" value={userData.name} />
+          <DetailRow icon="phone-outline" label="Contact" value={userData.contact} />
+          <DetailRow icon="email-outline" label="Email" value={userData.email} />
+          <DetailRow icon="map-marker-outline" label="Address" value="Not Provided" />
+          <DetailRow icon="calendar-outline" label="Date Of Birth" value={userData.dob} />
+          <DetailRow icon="gender-male-female" label="Gender" value={userData.gender} />
+
+          <TouchableOpacity className="mt-4 bg-[#FF5A5A] py-3 rounded-xl items-center shadow-md shadow-blue-400" onPress={() => handleLogout()}>
+            <Text className="text-white font-bold text-lg">Log Out</Text>
+          </TouchableOpacity>
         </View>
 
-      </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
 
-      <Text className="text-[#555] text-xs font-semibold uppercase tracking-widest mb-3">Actions</Text>
-
-      <View className="bg-[#1A1A1A] rounded-2xl overflow-hidden">
-
-        <TouchableOpacity
-          className="flex-row items-center px-4 py-3"
-          onPress={handleLogout}
-        >
-          <View className="w-8 h-8 rounded-lg bg-red-900/40 items-center justify-center mr-3">
-            <Ionicons name="log-out-outline" size={16} color="#f87171" />
-          </View>
-          <Text className="flex-1 text-red-400 text-sm font-medium">Logout</Text>
-          <Ionicons name="chevron-forward" size={16} color="#444" />
-        </TouchableOpacity>
-
-      </View>
-
+const DetailRow = ({ icon, label, value }) => (
+  <View className="flex-row items-start mb-5">
+    <View className="bg-blue-50 p-2 rounded-lg mr-4">
+      <MaterialCommunityIcons name={icon} size={20} color="#2FA4D7" />
     </View>
-  )
-}
+    <View className="flex-1 border-b border-gray-50 pb-2">
+      <Text className="text-gray-400 text-xs font-bold uppercase tracking-wider">{label}</Text>
+      <Text className="text-gray-800 text-base font-medium mt-0.5">{value}</Text>
+    </View>
+  </View>
+);
 
-export default Profile
+export default ProfileScreen;

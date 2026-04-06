@@ -2,6 +2,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Image, Platform, Text, useWindowDimensions, View, TouchableOpacity } from "react-native";
 import { HomeScreen, Profile } from "src/screens";
+import { Entypo } from "@expo/vector-icons";
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -38,7 +39,7 @@ export const BottomNavigation = () => {
             marginBottom: Platform.OS === "android" ? 10 : 16,
             paddingBottom: 7,
             height: 72,
-            backgroundColor: "#121212",
+            backgroundColor: "#2FA4D7",
             overflow: "hidden",
           },
           tabBarLabelStyle: {
@@ -71,12 +72,9 @@ export const BottomNavigation = () => {
             },
             tabBarIcon: ({ focused }) => (
               <View style={{ alignItems: "center" }}>
-                <Image
-                  source={require("../../assets/home/home-olive.png")}
-                  style={{ width: 24, height: 24 }}
-                />
+                <Entypo name="home" size={24} color="white" />
                 {focused && (
-                  <Text style={{ color: "#2ECC71", fontSize: 10 }}>Home</Text>
+                  <Text style={{ color: "#fff", fontSize: 10 }}>Home</Text>
                 )}
               </View>
             ),
@@ -98,12 +96,9 @@ export const BottomNavigation = () => {
             },
             tabBarIcon: ({ focused }) => (
               <View style={{ alignItems: "center" }}>
-                <Image
-                  source={require("../../assets/home/profile-olive.png")}
-                  style={{ width: 24, height: 24 }}
-                />
+                <Entypo name="user" size={24} color="white" />
                 {focused && (
-                  <Text style={{ color: "#2ECC71", fontSize: 10 }}>Profile</Text>
+                  <Text style={{ color: "#fff", fontSize: 10 }}>Profile</Text>
                 )}
               </View>
             ),

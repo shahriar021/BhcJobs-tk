@@ -1,8 +1,8 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { BottomNavigation } from "./BottomNavigation";
-import { PostDetails } from 'src/screens';
 import { RootStackParamList } from "src/types/navigation";
+import JobDetailScreen from "src/screens/Job/JobDetails";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -14,7 +14,7 @@ const StackNavigation = () => {
       <Stack.Navigator
         screenOptions={{
           cardStyle: {
-            backgroundColor: "#121212",
+            backgroundColor: "#fff",
           },
           headerStyle: {
             elevation: 0,
@@ -35,8 +35,8 @@ const StackNavigation = () => {
           }}
         />
         <Stack.Screen
-          name="Post Details"
-          component={PostDetails}
+          name="JobDetail"
+          component={JobDetailScreen}
           options={{
             headerShown: true,
           }}

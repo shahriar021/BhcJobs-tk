@@ -28,9 +28,9 @@ const InputField: React.FC<InputFieldProps> = ({
   textClass = '',
 }) => {
   return (
-    <View className={`bg-[#2C2C2C] rounded-lg flex-row items-center p-3 mb-3 ${className}`}>
+    <View className={`bg-[#D4F0FA] rounded-lg flex-row items-center p-3 mb-3 ${className}`}>
       <TextInput
-        className={`flex-1 text-white ${textClass}`}
+        className={`flex-1 text-black ${textClass}`}
         placeholder={placeholder}
         placeholderTextColor="#ADAEBC"
         value={value}
