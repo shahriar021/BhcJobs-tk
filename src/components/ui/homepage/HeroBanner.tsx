@@ -4,7 +4,12 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Text, TextInput, View } from "react-native";
 import WaveAnimation from "./WaveAnimation";
 
-const HeroBanner = () => (
+type Props = {
+  search: string;
+  onSearchChange: (text: string) => void;
+}
+
+const HeroBanner = ({ search, onSearchChange }: Props) => (
   <LinearGradient
     colors={["#2FA4D7", "#7EC4E8"]}
     start={{ x: 0, y: 0 }}
@@ -36,8 +41,10 @@ const HeroBanner = () => (
     >
       <Feather name="search" size={18} color="#999" />
       <TextInput
-        placeholder="Search jobs, companies..."
+        placeholder="Search jobs..."
         style={{ flex: 1, marginLeft: 10 }}
+        value={search}
+      onChangeText={onSearchChange}
       />
     </View>
     <View style={{ marginHorizontal: -20, marginBottom: 0 }}>

@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useMemo } from "react";
+import React, { useLayoutEffect, useMemo, useState } from "react";
 import { View, ScrollView, TouchableOpacity, FlatList, Image, ActivityIndicator } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useGetIndustriesQuery, useGetPopularCompaniesQuery, useGetRecommendedJobsQuery } from "src/redux/features/home/homeApi";
@@ -17,6 +17,8 @@ type NavigationProp = StackNavigationProp<RootStackParamList>
 const HomeScreen = () => {
   const navigation = useNavigation<NavigationProp>();
 
+  const [search, setSearch] = useState("");
+
   const { data: industriesData, isLoading: iLoad } = useGetIndustriesQuery({});
   const { data: jobsData, isLoading: jLoad } = useGetRecommendedJobsQuery({});
   const { data: companiesData, isLoading: cLoad } = useGetPopularCompaniesQuery({});
@@ -24,6 +26,11 @@ const HomeScreen = () => {
   const industries = useMemo<NormalizedIndustry[]>(() => (industriesData?.data || []).map(normalizeIndustry), [industriesData]);
   const jobs = useMemo<NormalizedJob[]>(() => (jobsData?.data || []).map(normalizeJob), [jobsData]);
   const companies = useMemo<NormalizedCompany[]>(() => (companiesData?.data || []).map(normalizeCompany), [companiesData]);
+
+  const filteredJobs = jobs.filter((job) =>
+    job.title.toLowerCase().includes(search.toLowerCase()) ||
+    job.company_name.toLowerCase().includes(search.toLowerCase())
+  );
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -53,12 +60,12 @@ const HomeScreen = () => {
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "#f6f7f9" }}>
-      <HeroBanner />
+      <HeroBanner search={search} onSearchChange={setSearch} />
 
       <View style={{ padding: 20 }}>
         <SectionHeader title="Popular Industries" />
         {iLoad ? (
-          <Loading/>
+          <Loading />
         ) : (
           <FlatList
             data={industries}
@@ -70,14 +77,16 @@ const HomeScreen = () => {
 
         <SectionHeader title="Recommended Jobs" />
         {jLoad ? (
-          <Loading/>
+          <Loading />
         ) : (
-          jobs.slice(0, 4).map((job) => <JobCard key={job.id} item={job} onPress={() => navigation.navigate("JobDetail", { job })} />)
+          (search ? filteredJobs : jobs.slice(0, 4)).map((job) => (
+            <JobCard key={job.id} item={job} onPress={() => navigation.navigate("JobDetail", { job })} />
+          ))
         )}
 
         <SectionHeader title="Popular Companies" />
         {cLoad ? (
-          <Loading/>
+          <Loading />
         ) : (
           <FlatList
             data={companies}

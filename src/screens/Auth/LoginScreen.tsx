@@ -28,7 +28,7 @@ const Login = () => {
       headerTintColor: "#FFFFFF",
       headerTitle: () => null,
       headerLeft: () => (
-        <TouchableOpacity className="flex-row gap-2 items-center p-3" onPress={() => navigation.goBack()}>
+        <TouchableOpacity className="flex-row gap-2 items-center p-3" onPress={() => navigation.navigate("OnBoarding")}>
           <Feather name="arrow-left-circle" size={24} color="white" />
           <Text className="font-instrumentSansBold text-white text-xl">BHCJobs</Text>
         </TouchableOpacity>

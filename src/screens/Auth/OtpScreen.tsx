@@ -7,6 +7,7 @@ import InputField from "src/components/shared/InputField";
 import { useOtpVerifyMutation } from "src/redux/features/auth/authApi";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "src/types";
+import { LinearGradient } from "expo-linear-gradient";
 
 type NavigationProp = StackNavigationProp<RootStackParamList>
 
@@ -19,18 +20,18 @@ const OtpVerify = () => {
   const [otp, setOtp] = useState(String(expectedOtp ?? "")); 
 
   useLayoutEffect(() => {
-    navigation.setOptions({
-      headerStyle: { backgroundColor: "#121212" },
-      headerTintColor: "#FFFFFF",
-      headerTitle: () => null,
-      headerLeft: () => (
-        <TouchableOpacity className="flex-row gap-2 items-center" onPress={() => navigation.goBack()}>
-          <Feather name="arrow-left-circle" size={24} color="white" />
-          <Text className="font-instrumentSansBold text-white text-xl">BHCJobs</Text>
-        </TouchableOpacity>
-      ),
-    });
-  }, [navigation]);
+      navigation.setOptions({
+        headerStyle: { backgroundColor: "#2FA4D7" },
+        headerTintColor: "#FFFFFF",
+        headerTitle: () => null,
+        headerLeft: () => (
+          <TouchableOpacity className="flex-row gap-2 items-center p-3" onPress={() => navigation.goBack()}>
+            <Feather name="arrow-left-circle" size={24} color="white" />
+            <Text className="font-instrumentSansBold text-white text-xl">BHCJobs</Text>
+          </TouchableOpacity>
+        ),
+      });
+    }, [navigation]);
 
   const handleVerify = async () => {
     if (!otp.trim()) return Alert.alert("Error", "Please enter the OTP");
@@ -48,9 +49,15 @@ const OtpVerify = () => {
   };
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: "#121212", padding: 20 }}>
+    <LinearGradient
+          colors={["#2FA4D7", "#ffffff"]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={{ flex: 1 }}
+        >
+    <ScrollView style={{ flex: 1,  padding: 20 }}>
       <Text style={{ color: "white", fontSize: 24, fontWeight: "bold", marginBottom: 8 }}>Verify Phone</Text>
-      <Text style={{ color: "#aaa", marginBottom: 24 }}>Enter the OTP sent to {phone}</Text>
+      <Text style={{ color: "#000", marginBottom: 24 }}>Enter the OTP sent to {phone}</Text>
 
       <InputField placeholder="Enter OTP" value={otp} onChangeText={setOtp} keyboardType="number-pad" />
 
@@ -63,11 +70,12 @@ const OtpVerify = () => {
       />
 
       <TouchableOpacity onPress={() => navigation.navigate("Sign Up as User")} className="items-center mt-2">
-        <Text style={{ color: "#aaa" }}>
+        <Text style={{ color: "#000" }}>
           Wrong number? <Text style={{ color: "white", fontWeight: "bold" }}>Go back</Text>
         </Text>
       </TouchableOpacity>
     </ScrollView>
+    </LinearGradient>
   );
 };
 

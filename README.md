@@ -4,10 +4,9 @@ A React Native mobile application that connects Bangladeshi job seekers with emp
 
 ---
 
-## Screenshots
+## Screen Recording
 
-> Screen recording available upon request.
-
+[▶ Watch Demo Video](https://drive.google.com/file/d/1gV1Pck1bNGq7-mdOSwXTcbYYLcfhiR-w/view?usp=drive_link)
 ---
 
 ## Tech Stack
