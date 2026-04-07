@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "BhcJobs",
-    "slug": "BhcJobs",
+    "slug": "bhcjobs",
     "platforms": [
       "android"
     ],
@@ -96,7 +96,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "b736ac17-c582-4b73-987a-99228ec8223b"
+        "projectId": "11cb8a1f-3116-4b7d-8a71-b24a0b5220bb"
       }
     }
   }

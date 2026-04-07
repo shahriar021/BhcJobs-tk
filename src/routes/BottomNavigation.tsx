@@ -63,7 +63,7 @@ export const BottomNavigation = () => {
           component={HomeScreen}
           options={{
             headerShown: true,
-            headerTitle: "Vocabo",
+            headerTitle: "",
             headerTitleAlign: "left",
             headerTitleStyle: {
               color: "white",

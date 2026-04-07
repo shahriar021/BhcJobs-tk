@@ -48,10 +48,11 @@ const Login = () => {
      const res = await login(formData).unwrap();
 
      if (res.status) {
+      Alert.alert("Login Successfull!")
        dispatch(setToken(res.data.token)); 
      }
    } catch (err: any) {
-     Alert.alert("Error", err?.data?.message || "Login failed");
+     Alert.alert("Error", err?.data?.message || "Login failed, Please try again later.");
    }
  };
   return (
@@ -63,7 +64,7 @@ const Login = () => {
     >
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={{ flex: 1, padding: 20 }}>
-          {/* Top Section */}
+          
           <View
             style={{
               backgroundColor: "rgba(255,255,255,0.95)",
@@ -84,9 +85,8 @@ const Login = () => {
             </Text>
           </View>
 
-          {/* Spacer pushes bottom card to middle */}
           <View style={{ flex: 1, justifyContent: "center" }}>
-            {/* Bottom Section (Form) */}
+            
             <View
               style={{
                 backgroundColor: "rgba(255,255,255,0.9)",
